@@ -1,0 +1,4 @@
+# Replace with your domain
+ithildin.example.com {
+    reverse_proxy web:3000
+}

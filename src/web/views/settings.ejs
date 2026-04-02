@@ -1,0 +1,65 @@
+<%- include('layout', { title: 'Settings', loggedIn: true }) %>
+
+<h2>Settings</h2>
+
+<% if (error) { %>
+  <p class="error"><%= error %></p>
+<% } %>
+<% if (success) { %>
+  <p class="success"><%= success %></p>
+<% } %>
+
+<form method="post" action="/settings">
+  <fieldset>
+    <legend><strong>Obsidian Sync</strong></legend>
+    <label>Obsidian Email
+      <input type="email" name="obsidianEmail" value="<%= c.obsidianEmail %>" placeholder="your@email.com">
+    </label>
+    <label>Obsidian Password
+      <input type="password" name="obsidianPassword" placeholder="<%= c.hasObsidianPassword ? '••••••••  (saved)' : 'Enter password' %>">
+      <% if (c.hasObsidianPassword) { %>
+        <small class="muted">Leave blank to keep current password.</small>
+      <% } %>
+    </label>
+    <label>Vault Name
+      <input type="text" name="vaultName" value="<%= c.vaultName %>" placeholder="My Vault">
+    </label>
+    <label>Vault Encryption Password
+      <input type="password" name="vaultEncryptionPassword" placeholder="<%= c.hasVaultEncryptionPassword ? '••••••••  (saved)' : 'E2EE password (if enabled)' %>">
+      <% if (c.hasVaultEncryptionPassword) { %>
+        <small class="muted">Leave blank to keep current password.</small>
+      <% } else { %>
+        <small class="muted">Only needed if your vault uses end-to-end encryption.</small>
+      <% } %>
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend><strong>Claude API</strong></legend>
+    <label>Anthropic API Key
+      <input type="password" name="anthropicApiKey" placeholder="<%= c.anthropicApiKey ? c.anthropicApiKey : 'sk-ant-...' %>">
+      <% if (c.anthropicApiKey) { %>
+        <small class="muted">Currently set. Leave blank to keep.</small>
+      <% } %>
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend><strong>Schedule</strong></legend>
+    <label>Timezone
+      <input type="text" name="timezone" value="<%= c.timezone %>" placeholder="Asia/Kolkata">
+    </label>
+    <label>Cron Schedule
+      <input type="text" name="cronSchedule" value="<%= c.cronSchedule %>" placeholder="0 6,21 * * *">
+      <small class="muted">Default: 6 AM and 9 PM daily</small>
+    </label>
+    <label>
+      <input type="checkbox" name="enabled" role="switch" <%= c.enabled ? 'checked' : '' %>>
+      Enable automatic processing
+    </label>
+  </fieldset>
+
+  <button type="submit">Save Settings</button>
+</form>
+
+<%- include('footer') %>

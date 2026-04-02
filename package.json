@@ -1,0 +1,45 @@
+{
+  "name": "ithildin-cloud",
+  "version": "0.1.0",
+  "description": "Hosted Obsidian second-brain processing service",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "run-once": "tsx scripts/run-once.ts"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.82.0",
+    "bcrypt": "^6.0.0",
+    "better-sqlite3": "^12.8.0",
+    "cheerio": "^1.2.0",
+    "connect-sqlite3": "^0.9.16",
+    "dotenv": "^17.4.0",
+    "drizzle-orm": "^0.45.2",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "gray-matter": "^4.0.3",
+    "luxon": "^3.7.2",
+    "node-cron": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/cheerio": "^0.22.35",
+    "@types/connect-sqlite3": "^0.9.6",
+    "@types/express": "^5.0.6",
+    "@types/express-session": "^1.18.2",
+    "@types/luxon": "^3.7.1",
+    "@types/node": "^25.5.0",
+    "drizzle-kit": "^0.31.10",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  }
+}

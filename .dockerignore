@@ -1,0 +1,10 @@
+node_modules
+dist
+data
+.env
+*.db
+*.db-journal
+.git
+.gitignore
+Caddyfile
+docker-compose.yml

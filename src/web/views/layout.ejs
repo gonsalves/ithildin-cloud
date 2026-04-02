@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= typeof title !== 'undefined' ? title + ' — ' : '' %>Ithildin</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <script src="https://unpkg.com/htmx.org@2"></script>
+  <style>
+    :root { --pico-font-family: system-ui, -apple-system, sans-serif; }
+    .container { max-width: 720px; }
+    nav .brand { font-weight: 700; text-decoration: none; }
+    .success { color: var(--pico-ins-color); }
+    .error { color: var(--pico-del-color); }
+    .muted { color: var(--pico-muted-color); }
+  </style>
+</head>
+<body>
+  <nav class="container">
+    <ul>
+      <li><a href="/" class="brand">Ithildin</a></li>
+    </ul>
+    <ul>
+      <% if (typeof loggedIn !== 'undefined' && loggedIn) { %>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/settings">Settings</a></li>
+        <li>
+          <form method="post" action="/logout" style="margin:0">
+            <button type="submit" class="outline secondary" style="margin:0;padding:0.25rem 0.5rem">Log out</button>
+          </form>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+  <main class="container">

@@ -1,0 +1,54 @@
+<%- include('layout', { title: 'Dashboard', loggedIn: true }) %>
+
+<h2>Dashboard</h2>
+
+<% if (!configured) { %>
+  <article>
+    <p>Your vault is not configured yet. <a href="/settings">Set up your credentials</a> to get started.</p>
+  </article>
+<% } else { %>
+  <article>
+    <p><strong>Status:</strong> <%= status %></p>
+    <p><strong>Schedule:</strong> <%= schedule %></p>
+    <% if (lastError) { %>
+      <p class="error"><small><%= lastError %></small></p>
+    <% } %>
+  </article>
+
+  <div style="margin-bottom: 1rem;">
+    <form method="post" action="/api/run-now" style="display:inline">
+      <button type="submit" <%= status === 'processing' ? 'disabled' : '' %>>Run Now</button>
+    </form>
+  </div>
+<% } %>
+
+<h3>Recent Runs</h3>
+
+<% if (runs.length === 0) { %>
+  <p><small class="muted">No processing runs yet.</small></p>
+<% } else { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Notes</th>
+        <th>Tokens</th>
+        <th>Error</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (const r of runs) { %>
+      <tr>
+        <td><small><%= r.started_at %></small></td>
+        <td><%= r.status %></td>
+        <td><%= r.notes_created || 0 %></td>
+        <td><%= r.api_tokens_used ? r.api_tokens_used.toLocaleString() : '—' %></td>
+        <td><small><%= r.error_message ? r.error_message.slice(0, 80) : '—' %></small></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+<% } %>
+
+<%- include('footer') %>
